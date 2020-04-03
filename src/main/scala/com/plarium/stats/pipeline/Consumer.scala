@@ -40,9 +40,6 @@ class AlpakaKafkaConsumer(sinkTo: ActorRef)(implicit mat: ActorMaterializer) ext
     //1. Define Parsing Exception Strategy
     //reference: https://doc.akka.io/docs/alpakka-kafka/current/serialization.html#spray-json
     val resumeOnParsingException = ActorAttributes.withSupervisionStrategy {
-      case e: spray.json.DeserializationException =>
-        log.warning(s"Parsing Exception while Deserializing Json to GameEvent. ${e.msg}")
-        Supervision.Resume
       case e:spray.json.JsonParser.ParsingException =>
         log.warning(s"Parsing Exception while Deserializing Json to GameEvent. ${e.detail}")
         Supervision.Resume
