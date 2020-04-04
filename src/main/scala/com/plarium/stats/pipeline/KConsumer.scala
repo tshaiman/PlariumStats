@@ -7,6 +7,7 @@ import akka.kafka.{CommitterSettings, ConsumerSettings, Subscriptions}
 import akka.stream.scaladsl.Keep
 import akka.stream.{ActorAttributes, ActorMaterializer, Supervision}
 import com.plarium.stats.model.{GameEvent, JsonSupport, Start}
+import com.typesafe.config.Config
 import org.apache.kafka.common.serialization.StringDeserializer
 import spray.json._
 
@@ -33,7 +34,7 @@ class AlpakaKafkaConsumer(sinkTo: ActorRef)(implicit mat: ActorMaterializer) ext
   //Alpakak - Akka Stream pipeline with commit after processing
   override def startConsumer(sinkTo: ActorRef)(implicit mat: ActorMaterializer): Unit = {
 
-    val consumerConfig = context.system.settings.config.getConfig("our-kafka-consumer")
+    val consumerConfig: Config = context.system.settings.config.getConfig("our-kafka-consumer")
     val consumerSettings = ConsumerSettings(consumerConfig, new StringDeserializer, new StringDeserializer)
     val topic = consumerConfig.getString("topic")
     val committerSettings = CommitterSettings(context.system)

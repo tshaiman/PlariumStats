@@ -20,6 +20,6 @@ class HttpServer(port:Int,orchestrator:ActorRef)
 
   def start(): Unit = {
     println(s"Server online at http://localhost:$port")
-    Http().bindAndHandle(route, "localhost", port)
+    Http().bindAndHandle(route, "0.0.0.0", port)
   }
 }

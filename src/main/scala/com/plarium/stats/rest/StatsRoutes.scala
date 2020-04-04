@@ -17,7 +17,7 @@ trait StatsRoutes extends JsonSupport {
 
 
   val statsRoute: Route = {
-    path("average_player_age") {
+    path("average_players_age") {
       implicit val timeout: Timeout = Timeout(1.seconds)
       get {
         completeWith(implicitly[ToResponseMarshaller[AvgAgeResponse]]) { f =>
