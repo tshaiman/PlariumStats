@@ -4,8 +4,7 @@ case object Start
 
 final case class Error(msg: String)
 
-final case class GameEvent(firstName: String,
-                              lastName: String,
+final case class GameEvent(name: String,
                               age: Int,
                               last_game_level: Int,
                               level_attempts: Int,

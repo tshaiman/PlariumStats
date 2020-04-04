@@ -44,7 +44,7 @@ class AlpakaKafkaConsumer(sinkTo: ActorRef)(implicit mat: ActorMaterializer) ext
       case e:spray.json.JsonParser.ParsingException =>
         log.warning(s"Parsing Exception while Deserializing Json to GameEvent. ${e.detail}")
         Supervision.Resume
-      case _ => Supervision.stop
+      case _ => Supervision.Resume
     }
 
     //2. Alpakka Akka Implementation for Consuming ,deserialize Json and  Committing Offset in bulks

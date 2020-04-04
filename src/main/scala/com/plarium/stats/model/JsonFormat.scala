@@ -20,7 +20,7 @@ trait JsonSupport extends SprayJsonSupport with DefaultJsonProtocol {
 
   //implicit  val mapFormat:JsonWriter[Any] = AnyJsonFormat
   implicit val errorFormat: RootJsonFormat[Error] = jsonFormat1(Error)
-  implicit val statsFormat: RootJsonFormat[GameEvent] = jsonFormat10(GameEvent)
+  implicit val statsFormat: RootJsonFormat[GameEvent] = jsonFormat9(GameEvent)
   implicit val avgResponseFormat = jsonFormat3(AvgAgeResponse)
   implicit val maxCountyLevelFormat = jsonFormat3(CountryMaxLevelResponse)
   //implicit val responseFormat = jsonFormat2(Response2)

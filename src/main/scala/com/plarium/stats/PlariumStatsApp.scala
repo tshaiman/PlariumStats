@@ -23,7 +23,7 @@ object PlariumStatsApp extends App{
   addShutdownHook()
 
   //Start The pipeline
-  //orchestrator ! Start
+  orchestrator ! Start
 
   def startHttpServer(config:Config):Unit = {
     val port = config.getInt("application.server-port")
