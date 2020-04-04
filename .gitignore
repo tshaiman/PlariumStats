@@ -85,6 +85,7 @@ worker*.log
 *-shim.sbt
 test-output
 
+ zk-single-kafka-multiple /
 
 # Default sigar library extract location.
 native/
