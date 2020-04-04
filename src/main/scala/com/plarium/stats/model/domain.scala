@@ -29,10 +29,10 @@ final case class AvgAgeResponse(average_players_age:Int,time:Long,fetched_record
 case class CountryMaxLevelRequest(countryCode:Option[String]) extends RestRequest
 case class CountryMaxLevelResponse(countries:Map[String,Int], time:Long, fetched_records:Long) extends RestResponse
 
-
+trait RequestqWithCallback
 //Routing & Actor-Per-Request Pattern
 case class AvgAgeRequestWithCallback(request:RestRequest,
-                                   complete: AvgAgeResponse => Unit)
+                                   complete: AvgAgeResponse => Unit) extends RequestqWithCallback
 
 case class CountryMaxLevelWithCallback(request:RestRequest,
-                                     complete: CountryMaxLevelResponse => Unit)
+                                     complete: CountryMaxLevelResponse => Unit) extends RequestqWithCallback

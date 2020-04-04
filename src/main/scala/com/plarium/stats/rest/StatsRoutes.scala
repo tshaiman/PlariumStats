@@ -43,5 +43,4 @@ trait StatsRoutes extends JsonSupport {
       }
     }
   }
-
 }

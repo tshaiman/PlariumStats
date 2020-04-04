@@ -1,11 +1,12 @@
 package com.plarium.stats.pipeline
 
-import akka.actor.{Actor, ActorLogging, ActorRef, Props}
+import akka.actor.{Actor, ActorLogging, ActorRef, ActorSystem, Props}
 import akka.stream.ActorMaterializer
-import com.plarium.stats.model.{AvgAgeRequest, AvgAgeRequestWithCallback, AvgAgeResponse, CountryMaxLevelRequest, CountryMaxLevelResponse, CountryMaxLevelWithCallback, Start}
+import com.plarium.stats.model.{RequestqWithCallback, Start}
+import com.plarium.stats.rest.RequestActor
 
 object Orchestrator {
-  def props()(implicit mat: ActorMaterializer):Props = Props(new Orchestrator())
+  def props()(implicit mat: ActorMaterializer,system:ActorSystem):Props = Props(new Orchestrator())
 }
 
 
@@ -14,7 +15,7 @@ object Orchestrator {
  * it is the Root actor of our application and it is responsible to build the hierarchy and govern it.
  * it is also helping in achieving the "actor-per-request" pattern.
  */
-class Orchestrator()(implicit mat:ActorMaterializer) extends Actor with ActorLogging{
+class Orchestrator()(implicit mat:ActorMaterializer,system:ActorSystem) extends Actor with ActorLogging{
 
   val aggregator: ActorRef = context.actorOf(StatsAggregatorActor.props())
   val consumer: ActorRef = context.actorOf(AlpakaKafkaConsumer.props(aggregator))
@@ -24,13 +25,9 @@ class Orchestrator()(implicit mat:ActorMaterializer) extends Actor with ActorLog
     case Start =>
       consumer ! Start
 
-    case req:AvgAgeRequestWithCallback =>
-      print("got AvgAgeRequest")
-      req.complete(AvgAgeResponse(3,3,3))
+    case request:RequestqWithCallback =>
+      system.actorOf(RequestActor.props(aggregator)) ! request
 
-    case req:CountryMaxLevelWithCallback =>
-      print("got CountryMaxRequest ")
-      req.complete(CountryMaxLevelResponse(Map("NY"->4,"AZ"->3),4,4))
 
   }
 }

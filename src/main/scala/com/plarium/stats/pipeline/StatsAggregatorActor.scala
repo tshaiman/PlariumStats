@@ -10,7 +10,7 @@ import scala.math._
 
 object StatsAggregatorActor {
   def props(): Props = Props[StatsAggregatorActor]
-  def time(): Long = Instant.now.getLong(ChronoField.MILLI_OF_SECOND)
+  def time(): Long = System.currentTimeMillis / 1000
 }
 
 class StatsAggregatorActor extends Actor with ActorLogging {
