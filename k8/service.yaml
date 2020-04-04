@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: plarium-stats-service
+  labels:
+    app: stats
+spec:
+  ports:
+    - port: 8080
+      targetPort: server-port
+      protocol: TCP
+  selector:
+    app: stats

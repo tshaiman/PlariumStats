@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: stats
+  name: stats
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: stats
+  template:
+    metadata:
+      labels:
+        app: stats
+    spec:
+      containers:
+      - image: tshaiman/plarium-stats:1.0
+        name: stats
+        ports:
+          - name: server-port
+            containerPort: 8080
+        resources:
+          requests:
+            memory: "800Mi"
+            cpu: "300m"
+          limits:
+            memory: "1200Mi"
+            cpu: "600m"
+
+
