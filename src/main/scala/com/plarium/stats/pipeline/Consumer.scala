@@ -30,6 +30,7 @@ class AlpakaKafkaConsumer(sinkTo: ActorRef)(implicit mat: ActorMaterializer) ext
       startConsumer(sinkTo)
   }
 
+  //Alpakak - Akka Stream pipeline with commit after processing
   override def startConsumer(sinkTo: ActorRef)(implicit mat: ActorMaterializer): Unit = {
 
     val consumerConfig = context.system.settings.config.getConfig("our-kafka-consumer")
@@ -61,7 +62,7 @@ class AlpakaKafkaConsumer(sinkTo: ActorRef)(implicit mat: ActorMaterializer) ext
         .run()
 
     def handle(eventData: GameEvent): Future[Unit] = Future {
-      print(eventData)
+      sinkTo ! eventData
     }
   }
 }

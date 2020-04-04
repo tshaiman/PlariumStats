@@ -14,3 +14,17 @@ final case class GameEvent(firstName: String,
                               country_code: String,
                               is_depositor: Boolean,
                               user_uuid: String)
+
+trait BaseResponse {
+  val time: Long
+  val fetched_records: Long
+}
+
+
+//Request /Response Scenarios
+case object AvgAgeRequest
+final case class AvgAgeResponse(average_players_age:Int,time:Long,fetched_records:Long) extends BaseResponse
+
+final case class CountryMaxLevelRequest(countryCode:Option[String])
+final case class CountryMaxLevelResponse(countries:Map[String,Int], time:Long, fetched_records:Long) extends BaseResponse
+

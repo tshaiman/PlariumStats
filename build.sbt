@@ -18,9 +18,6 @@ libraryDependencies ++= Seq(
   "io.spray"          %% "spray-json" % "1.3.5",
 
   "com.github.scredis" %% "scredis" % "2.2.5",
-  "com.google.cloud" % "google-cloud-logging-logback" % "0.95.0-alpha",
-  "com.jason-goodwin" %% "authentikat-jwt" % "0.4.5",
-
   "com.typesafe.akka" %% "akka-stream-kafka" % "2.0.2",
   "com.typesafe.akka" %% "akka-slf4j" % akkaVersion,
 
