@@ -13,7 +13,7 @@ import spray.json._
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-trait Consumer {
+trait KConsumer {
   def startConsumer(sinkTo: ActorRef)(implicit mat: ActorMaterializer)
 }
 
@@ -22,7 +22,7 @@ object AlpakaKafkaConsumer {
 }
 
 class AlpakaKafkaConsumer(sinkTo: ActorRef)(implicit mat: ActorMaterializer) extends Actor with ActorLogging
-  with Consumer
+  with KConsumer
   with JsonSupport {
 
   override def receive: Receive = {

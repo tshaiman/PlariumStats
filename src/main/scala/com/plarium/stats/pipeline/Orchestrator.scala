@@ -2,7 +2,7 @@ package com.plarium.stats.pipeline
 
 import akka.actor.{Actor, ActorLogging, ActorRef, Props}
 import akka.stream.ActorMaterializer
-import com.plarium.stats.model.Start
+import com.plarium.stats.model.{AvgAgeRequest, AvgAgeRequestWithCallback, AvgAgeResponse, CountryMaxLevelRequest, CountryMaxLevelResponse, CountryMaxLevelWithCallback, Start}
 
 object Orchestrator {
   def props()(implicit mat: ActorMaterializer):Props = Props(new Orchestrator())
@@ -23,6 +23,14 @@ class Orchestrator()(implicit mat:ActorMaterializer) extends Actor with ActorLog
 
     case Start =>
       consumer ! Start
+
+    case req:AvgAgeRequestWithCallback =>
+      print("got AvgAgeRequest")
+      req.complete(AvgAgeResponse(3,3,3))
+
+    case req:CountryMaxLevelWithCallback =>
+      print("got CountryMaxRequest ")
+      req.complete(CountryMaxLevelResponse(Map("NY"->4,"AZ"->3),4,4))
 
   }
 }

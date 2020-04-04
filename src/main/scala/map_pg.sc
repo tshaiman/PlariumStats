@@ -1,7 +1,7 @@
-import com.plarium.stats.model.{Error, GameEvent}
+
 import spray.json._
 import DefaultJsonProtocol._
-import com.plarium.stats.model
+
 var countries:Map[String,Int] = Map.empty
 
 countries += ("NY"->10)
@@ -10,7 +10,7 @@ countries += ("AZ"->14)
 
 
 //print(countries)
-//print(countries.toJson)
+print(countries.toJson)
 
 
 case class Response2(countries:Map[String,Int],ts:Long)

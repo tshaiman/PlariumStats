@@ -96,7 +96,7 @@ object WebServer {
       path("hello") {
         concat(
           get {
-            parameter("user","shouldFilter".as[Boolean]) { (user, shouldFilter) =>
+            parameter('user,'shouldFilter.as[Boolean]) { (user, shouldFilter) =>
                 complete(StatusCodes.OK, s"hello $user $shouldFilter")
             }
           }

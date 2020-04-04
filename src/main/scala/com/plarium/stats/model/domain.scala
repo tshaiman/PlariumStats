@@ -14,17 +14,25 @@ final case class GameEvent(firstName: String,
                               country_code: String,
                               is_depositor: Boolean,
                               user_uuid: String)
+trait RestRequest
 
-trait BaseResponse {
+trait RestResponse {
   val time: Long
   val fetched_records: Long
 }
 
 
 //Request /Response Scenarios
-case object AvgAgeRequest
-final case class AvgAgeResponse(average_players_age:Int,time:Long,fetched_records:Long) extends BaseResponse
+case object AvgAgeRequest extends RestRequest
+final case class AvgAgeResponse(average_players_age:Int,time:Long,fetched_records:Long) extends RestResponse
 
-final case class CountryMaxLevelRequest(countryCode:Option[String])
-final case class CountryMaxLevelResponse(countries:Map[String,Int], time:Long, fetched_records:Long) extends BaseResponse
+case class CountryMaxLevelRequest(countryCode:Option[String]) extends RestRequest
+case class CountryMaxLevelResponse(countries:Map[String,Int], time:Long, fetched_records:Long) extends RestResponse
 
+
+//Routing & Actor-Per-Request Pattern
+case class AvgAgeRequestWithCallback(request:RestRequest,
+                                   complete: AvgAgeResponse => Unit)
+
+case class CountryMaxLevelWithCallback(request:RestRequest,
+                                     complete: CountryMaxLevelResponse => Unit)
